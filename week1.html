@@ -331,6 +331,10 @@ Same with line-breaks.&lt;/p&gt;</code></pre>
       &lt;td&gt;Alice&lt;/td&gt;
       &lt;td&gt;20&lt;/td&gt;
     &lt;/tr&gt;
+     &lt;tr&gt;
+      &lt;td&gt;Bob&lt;/td&gt;
+      &lt;td&gt;21&lt;/td&gt;
+    &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;</code></pre>
             <div class="rendered">
@@ -346,6 +350,10 @@ Same with line-breaks.&lt;/p&gt;</code></pre>
                             <td>Alice</td>
                             <td>20</td>
                         </tr>
+                        <tr>
+                            <td>Bob</td>
+                            <td>21</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -355,37 +363,42 @@ Same with line-breaks.&lt;/p&gt;</code></pre>
             <h2>9. Forms (Inputs and Buttons)</h2>
             <p>One can use <code>&lt;form&gt;</code> elements for interactive user input. Common fields include
                 <code>&lt;input&gt;</code>, <code>&lt;textarea&gt;</code>, <code>&lt;select&gt;</code>, and
-                <code>&lt;button&gt;</code>.
+                <code>&lt;button&gt;</code>. There are different types of input fields, such as text, password, email, and more. 
+                Forms can then be submitted to a server, but we will learn about that in the later session when we talk about JavaScript.
             </p>
             <pre><code  class="language-html">&lt;form&gt;
-  &lt;label&gt;Name:&lt;input type="text" name="name" placeholder="Your name"&gt;&lt;/label&gt;
-  &lt;label&gt;Message:&lt;textarea name="msg" rows="3"&gt;&lt;/textarea&gt;&lt;/label&gt;
-  &lt;label for=""&gt;Options:
+    Name:&lt;input type="text" name="name" placeholder="Your name"&gt;  
+    &lt;br&gt;
+    Message:&lt;textarea name="msg" rows="3"&gt;&lt;/textarea&gt;
+    &lt;br&gt;
+    Topic:
     &lt;select name="" id=""&gt;
-      &lt;option value=""&gt;Option 1&lt;/option&gt;
-      &lt;option value=""&gt;Option 2&lt;/option&gt;
-      &lt;option value=""&gt;Option 3&lt;/option&gt;
+            &lt;option value=""&gt;Inquiry&lt;/option&gt;
+            &lt;option value=""&gt;Complain&lt;/option&gt;
+            &lt;option value=""&gt;Comment&lt;/option&gt;
     &lt;/select&gt;
-  &lt;/label&gt;
-  &lt;button type="submit"&gt;Send&lt;/button&gt;
+    &lt;br&gt;
+    &lt;input type="radio" name="role" value="student"&gt;student
+    &lt;input type="radio" name="role" value="teacher"&gt;teacher
+    &lt;br&gt;
+    &lt;button type="submit"&gt;Send&lt;/button&gt;
 &lt;/form&gt;</code></pre>
             <div class="rendered">
                 <form>
-                    <label>Name:
-                        <input type="text" name="name" placeholder="Your name">
-                    </label>
+                    Name:<input type="text" name="name" placeholder="Your name">
                     <br>
-                    <label>Message:
-                        <textarea name="msg" rows="3"></textarea>
-                    </label>
-                    <label for="">Options:
-                        <select name="" id="">
-                            <option value="">Option 1</option>
-                            <option value="">Option 2</option>
-                            <option value="">Option 3</option>
+                    Message:<textarea name="msg" rows="3"></textarea>
+                   <br>
+                   Topic:
+                    <select name="" id="">
+                            <option value="">Inquiry</option>
+                            <option value="">Complain</option>
+                            <option value="">Comment</option>
                         </select>
-                    </label>
-
+                        <br>
+                        <input type="radio" name="role" value="student">student
+                        <input type="radio" name="role" value="teacher">teacher
+                        <br>
                     <button type="submit">Send</button>
                 </form>
             </div>
