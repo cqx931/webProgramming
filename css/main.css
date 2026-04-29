@@ -14,6 +14,7 @@ header {
     padding: 1.1rem 1.2rem;
     text-align: center;
 }
+
 main {
     max-width: 900px;
     margin: 1rem auto;
@@ -78,4 +79,18 @@ footer {
     text-align: center;
     margin: 2rem auto 1rem;
     color: #6a7480;
+}
+.exercise {
+    background-color: lightgrey;
+    border-radius: 8px;
+    margin:0 1em;
+    border:0;
+    padding: 0.5em 1em 1.5em 1em; 
+}
+.exercise a {
+    text-decoration: none;
+    color:black;
+}
+.exercise a:hover{
+    text-decoration: underline;
 }
