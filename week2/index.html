@@ -560,7 +560,13 @@ ul#combined li:first-child {
 
             <h3>Font Family</h3>
             <p>Use <code>font-family</code> to specify the typeface. Provide fallback options separated by commas. 
-                The browser will use the first available font in the list. Mac and Windows have different default fonts, so it's common to include both along with a generic family as the last fallback.</p>
+                The browser will use the first available font in the list. Mac and Windows have different default fonts, so it's common to include both along with a generic family as the last fallback.
+            </p>
+
+            <p>
+                Font family names can be used without quotation marks in CSS if they contain only letters, numbers, hyphens, or underscores. 
+                Single-word names like Arial, Helvetica, or Georgia do not require quotes. However, font names containing spaces (e.g., "Times New Roman") or special characters should be quoted.
+            </p>
             <pre><code class="language-css">font-family: 'Helvetica', Arial, sans-serif;
 font-family: 'Georgia', 'Times New Roman', serif;
 font-family: 'Courier New', monospace;</code></pre>

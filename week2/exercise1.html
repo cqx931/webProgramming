@@ -121,6 +121,7 @@
     </style>
     <style>
         /* Write your CSS rules here */
+
     </style>
 </head>
 
@@ -142,17 +143,36 @@
         </section>
 
         <!-- Task 1: Basic selectors -->
+         <style>
+            #task1 #special {
+                background-color:lightseagreen ;
+            }
+            #task1 .danger.box {
+                background-color: lightcoral;
+            }
+            #task1 .box {
+                background-color: lightgrey;
+            }
+
+         </style>
         <section class="task" id="task1">
             <h2>Task 1: Basic Selectors
                 * Use background-color!
             </h2>
-            <div class="box ">div (element) <br>color: lightgrey</div>
+            <div class="box">div (element) <br>color: lightgrey</div>
             <div class="box danger">danger (class) <br>color: lightcoral</div>
             <div class="box" id="special">id: special <br> color: lightseagreen</div>
-            <div class="box ">div (element) <br>color: lightgrey</div>
+            <div class="box">div (element) <br>color: lightgrey</div>
         </section>
 
-
+        <style>
+            #task2 > .box {
+                color:teal;
+            }
+            #task2 .special {
+                color:black;
+            }
+        </style>
         <!-- Task 2: Child vs Descendant -->
         <section class="task" id="task2">
             <h2>Task 2: Child vs Descendant Selectors</h2>
@@ -164,6 +184,16 @@
         
         </section>
 
+        <style>
+            /* + or ~ */
+             #task3 h2 ~ div {
+                border-color: grey;
+            }
+            #task3 h2 + div {
+                border-color: orange;
+            }
+        </style>
+
         <!-- Task 3: Siblings -->
         <section class="task" id="task3">
             <h2>Task 3: Sibling Selectors</h2>
@@ -172,8 +202,16 @@
             <div class="box">third item <br> border-color: grey</div>
         </section>
 
+        <style>
+            #task4 .box[data-level="high"] {
+                background-color:gold;
+            }
+             #task4 a[href^="https"] {
+                background-color:green;
+            }
+        </style>
         <!-- Task 4: Attributes -->
-        <section class="task">
+        <section class="task" id="task4">
             <h2>Task 4: Attribute Selectors</h2>
             <div class="box" data-level="high">data-level="high" - color: gold</div>
             <div class="box" data-level="low">data-level="low" - color: gray</div>
@@ -181,7 +219,6 @@
             <a class="box-link" href="http://example.com">http link - NO color</a>
         </section>
 
-       
 
 
     </main>
