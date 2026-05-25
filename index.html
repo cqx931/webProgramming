@@ -26,9 +26,11 @@
       box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
     }
     h1 {
+      font-family:'Anonymous Pro', monospace;
       margin-top: 0;
       color: #111827;
     }
+
     p {
       line-height: 1.75;
       margin: 1rem 0 1.5rem;
@@ -41,7 +43,15 @@
     li {
       margin-bottom: 0.75rem;
     }
-   
+    /* anonymous-pro-regular - latin */
+    @font-face {
+      font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+      font-family: 'Anonymous Pro';
+      font-style: normal;
+      font-weight: 400;
+      src: url('fonts/anonymous-pro-v22-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+    }
+
 </style>
 </head>
 <body>
