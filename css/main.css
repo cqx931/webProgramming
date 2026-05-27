@@ -5,7 +5,7 @@ body {
     margin: 0;
     padding: 0;
     color: #2d2d2d;
-    background: #f4f7fb;
+    background: #f5f5f5;
 }
 
 header {
@@ -37,6 +37,15 @@ p {
     margin: 0.5rem 1rem 0.8rem;
     max-width: 800px;
 }
+
+a {
+    text-decoration: underline;
+    color:inherit;
+}
+a:hover{
+   text-decoration: none;
+}
+
 pre {
     background: #eef3fc;
     padding: 0.9rem;
@@ -65,6 +74,7 @@ form label {
     margin: 0.5rem 0 0.2rem;
 }
 
+
 .example {
     margin: 0.4rem 0 1.2rem;
 }
@@ -87,10 +97,4 @@ footer {
     border:0;
     padding: 0.5em 1em 1.5em 1em; 
 }
-.exercise a {
-    text-decoration: none;
-    color:black;
-}
-.exercise a:hover{
-    text-decoration: underline;
-}
+

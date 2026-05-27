@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise: Mondrian Layout</title>
+    <style>
+    /* 1. Use a more-intuitive box-sizing model */
+    *, *::before, *::after {
+        /*  */
+        box-sizing: border-box;
+    }
+
+    body {
+        max-width: 1000px;
+        margin: 20px;
+        padding:50px;
+        height: 100%;
+        font-family: Optima, Candara, 'Noto Sans', source-sans-pro, sans-serif;  
+        }
+    p {
+        width:600px;
+    }
+
+    img {
+        float:right;
+    }
+
+    /* Step 1: position the canvas */
+    .canvas {
+        background-color:#111;
+        width:400px;
+        height:600px;
+        margin-bottom:10px;
+    }
+
+    /* Step 2: make blocks positionable */
+    .block {
+
+    }
+
+    /* Step 3: position each block */
+    .red    {
+        background-color:#dd0100;
+    }
+    .white-1{
+        background-color:#f0ede6;
+    }
+    .white-2{
+        background-color:#f0ede6;
+    }
+    .yellow { 
+        background-color:#fac901;
+    }
+    .blue   {
+        background-color:#225095;
+    }
+</style>
+</head>
+<body>
+
+    <!-- The canvas container -->
+<h1>Exercise: Mondrian Layout</h1>
+<p>In this exercise, we will recreate a Mondrian-style layout like the image using CSS together. 
+</p>
+<p>First we will try to do this with position. The gaps between absolutely positioned blocks will serve as the black lines — no borders needed.</p>
+<img src="images/mondrian.png" alt="Mondrian Layout" width="400px" height="600px">
+
+    <div class="canvas">
+        <!-- 5 colored blocks -->
+        <div class="block red">height:150px</div>
+        <div class="block white-1">width: 60%</div>
+        <div class="block yellow">height:150px</div>
+        <div class="block blue">height:150px</div>
+        <div class="block white-2">width: 40%</div>
+    </div>
+
+    
+</body>
+</html>
