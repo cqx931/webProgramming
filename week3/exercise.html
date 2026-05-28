@@ -29,15 +29,27 @@
 
     /* Step 1: position the canvas */
     .canvas {
+        position:relative;
         background-color:#111;
         width:400px;
         height:600px;
         margin-bottom:10px;
     }
-
     /* Step 2: make blocks positionable */
     .block {
-
+        padding: 5px;
+        margin:8px;
+    }
+    .col1 {
+        width:60%;
+        float: left;
+    }
+    .col2 {
+        width:40%;
+        float: left;
+    }
+    .red, .blue, .yellow {
+        height:150px;
     }
 
     /* Step 3: position each block */
@@ -46,15 +58,25 @@
     }
     .white-1{
         background-color:#f0ede6;
+        height: calc(600px - 150px - 8px*3);
     }
     .white-2{
         background-color:#f0ede6;
+        height: calc(600px - 150px*2 - 8px*4);
     }
     .yellow { 
         background-color:#fac901;
     }
     .blue   {
         background-color:#225095;
+    }
+    .orange {
+        position:absolute;
+        background-color:orange;
+        width:100px;
+        height:100px;
+        top:80px;
+        left:30px;
     }
 </style>
 </head>
@@ -69,11 +91,16 @@
 
     <div class="canvas">
         <!-- 5 colored blocks -->
-        <div class="block red">height:150px</div>
-        <div class="block white-1">width: 60%</div>
-        <div class="block yellow">height:150px</div>
-        <div class="block blue">height:150px</div>
-        <div class="block white-2">width: 40%</div>
+        <div class="col1">
+            <div class="block red">height:150px</div>
+            <div class="block white-1">width: 60%</div>
+        </div>
+        <div class="col2">
+            <div class="block yellow">height:150px</div>
+            <div class="block blue">height:150px</div>
+            <div class="block white-2">width: 40%</div>
+        </div>
+        <div class="block orange"></div>
     </div>
 
     
