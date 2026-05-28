@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exercise: Mondrian Layout</title>
+    <style>
+        /* General CSS for the look of this page */
+
+        body {
+            margin: 20px auto;
+            padding: 20px;
+            max-width: 1080px;
+            line-height: 1.5;
+            color: #222;
+            background: #f6f6f6;
+            font-family: Optima, Candara, 'Noto Sans', source-sans-pro, sans-serif;  
+        }
+
+        h1 {
+            margin-bottom: 0.4rem;
+        }
+
+        h2 {
+            margin: 1.5rem 0 0.5rem;
+        }
+
+        .intro {
+            display: grid;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .intro p {
+            max-width: 720px;
+        }
+
+        .demo {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 0.75rem;
+            padding: 1rem 1.25rem 1.5rem;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1.75rem;
+        }
+
+        .demo h3 {
+            margin-top: 1rem;
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
+            color: #333;
+        }
+
+        .demo p {
+            margin: 0 0 1rem;
+            max-width: 680px;
+        }
+    </style>
+    <style>
+         /* 1. Use a more-intuitive box-sizing model here to have easier
+         calculation when it comes to box sizes */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        .canvas {
+            width: 400px;
+            height: 600px;
+            background: #111;
+            display: inline-block;
+            overflow: hidden;
+        }
+
+        .canvas .block {
+            padding:5px;
+            color: #111;
+        }
+
+        .red  {
+        background-color:#dd0100;
+        }
+        .yellow { 
+            background-color:#fac901;
+        }
+        .blue   {
+            background-color:#225095;
+        }
+        .white-1, .white-2{
+            background-color:#f0ede6;
+        }
+
+        /* Float layout */
+
+        .canvas.float .block {
+            width:100%;
+            margin: 8px;
+            width:calc(100% - 8px*2); 
+        }
+
+        .canvas.float .col1{
+             width: 60%;
+             float: left;
+        }
+        .canvas.float .col2{
+             width: 40%;
+             float: left;
+        }
+
+        .canvas.float .red, .canvas.float .yellow, .canvas.float .blue{
+            height: 150px;
+        }
+
+        .canvas.float .white-1 {
+            height:calc(600px - 150px - 8px*3);
+        }
+
+        .canvas.float .white-2 {
+            height:calc(600px - 150px*2 - 8px*4);
+        }
+
+        /* Flexbox layout */
+        .canvas.flex {
+            padding: 8px;
+            display: flex;
+            gap: 8px;
+        }
+        .canvas.flex .col1 {
+            flex: 6;
+        }
+        .canvas.flex .col2 {
+            flex: 4;
+        }
+
+        .canvas.flex .col1, .canvas.flex .col2 {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .canvas.flex .red, .canvas.flex .yellow, .canvas.flex .blue{
+           flex-basis: 150px;
+        }
+
+        .canvas.flex .white-1, .canvas.flex .white-2{
+            /* takes up all available space */
+            flex-grow: 1; 
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Exercise Answers: Mondrian Layout</h1>
+    <div class="intro">
+        <p>Recreate the same Mondrian-inspired composition using three different CSS layout techniques. Each canvas uses the same five colored blocks arranged in the same overall shape.</p>
+ <img src="https://cqx931.github.io/webProgramming/images/mondrian.png" alt="Mondrian Layout" width="400px" height="600px">
+
+    </div>
+
+    <div class="layout-row">
+        <section class="demo">
+            <h2>Float version</h2>
+            <div class="canvas float">
+                <div class="col1">
+                <div class="block red">height:150px</div>
+                <div class="block white-1">width: 60%</div>
+                </div><div class="col2">
+                <div class="block yellow">height:150px</div>
+                <div class="block blue">height:150px</div>
+                <div class="block white-2">width: 40%</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="demo">
+            <h2>Flexbox version</h2>
+            <div class="canvas flex">
+                <div class="col1">
+                <div class="block red">height: 150px</div>
+                <div class="block white-1">width: 60%</div>
+                </div><div class="col2">
+                 <div class="block yellow">height:150px</div>
+                <div class="block blue">height:150px</div>
+                <div class="block white-2">width: 40%</div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+</body>
+</html>

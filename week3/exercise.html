@@ -29,54 +29,52 @@
 
     /* Step 1: position the canvas */
     .canvas {
-        position:relative;
+        display:flex;
         background-color:#111;
         width:400px;
         height:600px;
         margin-bottom:10px;
+        padding:8px;
+        gap: 8px;
     }
     /* Step 2: make blocks positionable */
     .block {
-        padding: 5px;
-        margin:8px;
+
+    }
+    .col1, .col2 {
+        display:flex;
+        flex-direction: column;
+        gap:8px;
     }
     .col1 {
-        width:60%;
-        float: left;
+        flex:3;
     }
     .col2 {
-        width:40%;
-        float: left;
+        flex:2;
     }
+
     .red, .blue, .yellow {
         height:150px;
     }
+    .white-1, .white-2 {
+        flex: 1;
+    }
 
     /* Step 3: position each block */
-    .red    {
+    .red  {
         background-color:#dd0100;
     }
     .white-1{
         background-color:#f0ede6;
-        height: calc(600px - 150px - 8px*3);
     }
     .white-2{
         background-color:#f0ede6;
-        height: calc(600px - 150px*2 - 8px*4);
     }
     .yellow { 
         background-color:#fac901;
     }
     .blue   {
         background-color:#225095;
-    }
-    .orange {
-        position:absolute;
-        background-color:orange;
-        width:100px;
-        height:100px;
-        top:80px;
-        left:30px;
     }
 </style>
 </head>
@@ -87,7 +85,11 @@
 <p>In this exercise, we will recreate a Mondrian-style layout like the image using CSS together. 
 </p>
 <p>First we will try to do this with position. The gaps between absolutely positioned blocks will serve as the black lines — no borders needed.</p>
+<p>
+    Check <a href="exercise_answers.html">here</a> for two implementations of the same grid using float/flexbox layout.
+</p>
 <img src="https://cqx931.github.io/webProgramming/images/mondrian.png" alt="Mondrian Layout" width="400px" height="600px">
+
 
     <div class="canvas">
         <!-- 5 colored blocks -->
@@ -100,9 +102,8 @@
             <div class="block blue">height:150px</div>
             <div class="block white-2">width: 40%</div>
         </div>
-        <div class="block orange"></div>
     </div>
 
-    
+
 </body>
 </html>
