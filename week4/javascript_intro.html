@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduction to Javascript</title>
+
+    <link href="../css/main.css" rel="stylesheet" />
+    <!-- Prism.js for syntax highlighting for code tags -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Introduction to Javascript</h1>
+    </header>
+    <main>
+
+        <p>In this section, we'll cover the basics of JavaScript syntax and how to use it to create simple interactions.</p>
+
+        <section id="basics">
+        <h3>Basics </h3>
+
+        <p> First let's try to open the browser console (press F12 or right-click and select "Inspect" then go to the "Console" tab) and type in some JavaScript code:</p>
+        <pre><code class="language-javascript">console.log("Hello, world!");</code></pre>
+        <p>You should see "Hello, world!" printed in the console. This is the python <code>print()</code> equivalant and how we can use JavaScript to output information for debugging or interaction purposes.</p>
+        <pre><code class="language-javascript">// This is how to comment in single Line
+/* This is how to comment in multiple lines
+You can write anything here and it won't be executed as code */
+        </code></pre>
+
+        Another important aspect of JavaScript is variables. We can declare variables using the <code>var</code>, <code>let</code>, or <code>const</code> keywords. For example:
+        <pre><code class="language-javascript">// Declare a variable called name, it's value can be changed later
+let name = "Alice"; 
+// Declare a constant variable called age, this value can't be changed later
+const age = 30; 
+// Note: var is the old way of declaring variables and is generally not recommended
+var x = 10;
+</code></pre>
+        <p>In this code, we declare a variable called <code>name</code> and assign it the value "Alice". We also declare a constant variable called <code>age</code> and assign it the value 30. The difference between <code>let</code> and <code>const</code> is that <code>let</code> allows you to reassign the variable later, while <code>const</code> does not allow reassignment.</p>   
+<p>
+        <code>var</code> is the old way of declaring variables and is generally not recommended due to its global scope, which can lead to bugs. 
+        It's better to use <code>let</code> and <code>const</code> for block-scoped variables. 
+        </p><p>
+        If you haven't learnt a programming language properly before, you can just ignore <code>var</code>, use <code>let</code> for variables that can change and <code>const</code> for variables that won't change.
+</p></section>
+
+<section id="selectors">
+    <h3>DOM & Selectors</h3>
+    <p>
+        The <b>Document Object Model(DOM)</b> represents the structure of an HTML document as a tree of objects. It allows JavaScript to interact with and modify the content and elements of a webpage dynamically.
+            <img style="width:600px;" src="../images/DOM-Tree.webp" alt="">
+</p>
+
+<p>
+   When an HTML document is loaded into a web browser, it becomes a document object.
+
+The document object is the root node of the HTML document. It contains all the elements of the webpage as child nodes. Each element in the HTML document is represented as an object in the DOM, and these objects can be accessed and manipulated using JavaScript.
+</p>
+<pre><code class="language-javascript">const title = document.title; // Get the title of the document
+const url = document.URL; // Get the URL of the document
+const body = document.body; // Get the body element of the document
+</code></pre>
+<p>
+In JavaScript, we can use selectors to access and manipulate elements on a webpage.    
+</p>
+    <pre><code class="language-javascript">// Selects the element with id
+const element = document.getElementById("myElement"); 
+// Selects all elements with the class "myClass"
+const elements = document.getElementsByClassName("myClass"); 
+// Selects all p elements
+const all_p = document.getElementsByTagName("p");  </code>
+    </pre>
+    <p>   The easist and most flexible way to select elements is by using the <code>document.querySelector()</code> method, which allows you to select elements using all possible CSS selectors. For example:</p>
+    <pre><code class="language-javascript">// Selects the first element that matches the CSS selector
+const element = document.querySelector(".myClass p"); 
+// Selects all elements with the class "myClass"
+const elements = document.querySelectorAll(".myClass"); </code></pre>
+    <p>However, they are not as fast as other selector methods like <code>getElementById()</code> and <code>getElementsByClassName()</code>, 
+        so if what you want to select is possible to be done with the specific selectors, it's better to use that instead.</p>
+</section>
+
+    <section id="dom">
+        <h3>Dom Manipulation</h3>
+        <p>JavaScript can manipulate the the DOM to change the content and style of a webpage. 
+
+    </p>
+        
+        <p>
+            For example, we can create a button that changes its text when clicked:</p>
+        <pre><code class="language-javascript">const button = document.getElementById("myButton");
+button.addEventListener("click", function() {
+    button.textContent = Date(); // We can change the HTML 
+    button.style.backgroundColor = "orange"; // and the CSS
+});</code></pre>
+    <div class="rendered">
+        <button id="myButton" class="interact-btn">Click me</button>
+    </div>
+    <script>
+        const button = document.getElementById("myButton");
+        button.addEventListener("click", function() {
+            button.textContent = Date(); // Time stamp
+            button.style.backgroundColor = "orange"; // Change background color 
+        });
+    </script>
+        <h3>Event Listeners</h3>
+        <p>Event listeners are a fundamental part of JavaScript interactivity. They allow you
+to respond to various user actions such as clicks, mouse movements, keyboard input, and more. 
+By attaching event listeners to elements on your webpage, you can create dynamic and interactive experiences for users.
+Some common event listeners are:<code>click, dbclick, mouseover, mouseout, keydown, keyup, submit</code>, etc.
+</code>
+</p>
+<pre><code class="language-javascript">document.addEventListener("keydown", function(event) {
+    console.log("Key pressed: " + event.key);
+});</code></pre>
+<script>
+document.addEventListener("keydown", function(event) {
+    console.log("Key pressed: " + event.key);
+});
+</script>
+<p>In this example, we add an event listener to the entire document that listens for the "keydown" event. Whenever a key is pressed, the function will log the key that was pressed to the console. 
+            </p>
+        
+<p>
+Event listeners can also be added to any element on the webpage:
+</p>
+<pre><code class="language-html">&lt;button id=&quot;myButton&quot; onclick=&quot;console.log(this.id);&quot;&gt;Click me&lt;/button&gt;
+</code></pre>
+<div class="rendered">
+    <button id="myButton" onclick="console.log(this.id);">Click me</button>
+</div>
+
+<p> 
+This is just a very minimal introduction to Javascript. One doesn't necessarily need to know programming properly to just create simple interactions using Javascript.
+But for more complex ones, proper understanding of programming concepts and Javascript syntax will enable you to understand and create more complicated behaviours.
+</p><p>
+We won't teach you programming in JS in this class. But we will cover more advanced Javascipt topics that are useful for web development in future sessions.
+</p>
+    </section>
+</main>
+</body>
+</html>

@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Course material for week 3 of Web Programming SoSe 2026">
+    <meta name="keywords" content="CSS, Web Programming">
+    <meta name="author" content="Qianxun Chen">
+    <title>Interactions</title>
+
+    <link href="../css/main.css" rel="stylesheet" />
+    <!-- Prism.js for syntax highlighting for code tags -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <style>
+        /* Clearfix technique */
+        .clearfix::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+        /* define mondrian colors */
+        :root {
+            --mondrian-red:#dd0100;
+            --mondrian-yellow:#fac901;
+            --mondrian-blue:#225095;
+        }
+        .cursor-demo {
+            display: inline-block;
+            margin: 0.5rem;
+            padding: 0.5rem;
+            background: #ecf0f1;
+            border-radius: 4px;
+            color: #2c3e50;
+        }
+        .interact-btn {
+            display: inline-block;
+            padding: 0.7rem 1.2rem;
+            background: var(--mondrian-blue);
+            color: white;
+            cursor: pointer;
+            user-select: none;
+            width:200px;
+            border:none;
+        }
+    </style>
+
+</head>
+<body>
+    <header>
+        <h1>Week 4: Interactions</h1>
+        Advanced CSS
+    </header>
+
+ <main>
+    <section id="pseudo-selectors">
+
+            <h2>1. More Pseudo Selectors</h2>
+            <p>In Week 2 we have seen how to use CSS pseudo selectors to target specific elements(first child, nth child...) on the page. Pseudo-classes also allow you to style elements based on their state or user interactions. This is very powerful for creating basic interactive effects without needing JavaScript. 
+                CSS can respond to user actions with pseudo-classes and control how elements can be displayed differently, shown or hidden.</p>
+
+            <h3>:hover</h3>
+            <p>The most commonly used pseudo-class for interactivity is <code>:hover</code>, which applies styles when the user hovers their mouse over an element. This is often used to create visual feedback for buttons, links, and other interactive elements.</p>
+
+<pre><code class="language-css">
+#hover-btn:hover   { 
+    background: #fac901;  
+    color: black;
+}    /* mouse over -> yellow */
+</code></pre>
+<style>
+    #hover-btn:hover   { background: #fac901;  color: black;
+ }    /* mouse over -> yellow */
+</style>
+<div class="rendered">
+    <button id="hover-btn" class="interact-btn">Hover over me</button>
+</div>
+
+<h3>:active and :focus</h3>
+<p>In addition to <code>:hover</code>, there are other pseudo-classes that can be used to create interactive effects. </p>
+<p>The <code>:active</code> pseudo-class applies styles when an element is being activated (e.g., when a button is being clicked), while the <code>:focus</code> pseudo-class applies styles when an element is in focus. More importantly, it will continue to stay in focus until the user activates another element. 
+(e.g.when a user click somewhere else).</p>
+<pre><code class="language-css">#active-btn:active  { background: #1c6ea4; }   /* while clicking */
+/* Notice that the focus border only switch off when the user switch to another element */
+#focus-btn:focus { outline: 2px solid red;} 
+input:focus  { outline: 2px solid red; } </code></pre>
+<style>
+#active-btn:active  { background: #dd0100; }   /* while clicking -> red */
+#focus-btn:focus { outline: 2px solid red;}
+input:focus  { outline: 2px solid red; } /* keyboard focus */
+</style>
+<div class="rendered" style="display:flex; justify-content: space-evenly;">
+    <button id="active-btn" class="interact-btn">Click me</button>
+    <button id="focus-btn" class="interact-btn">Focus me</button>
+    <input type="text" placeholder="Focus me">
+</div>  
+
+<h3>Combination of all three</h3>
+<p>
+You can also combine <code>:hover</code>, <code>:active</code>, and <code>:focus</code> pseudo-classes to create more complex interactions. For example, you can change the background color of a button when it is hovered over, clicked, or focused to provide clear visual feedback to users about the different states of the button.</p>
+<pre><code class="language-css">#interact-btn:hover { background: #fac901; }   /* mouse over -> yellow */
+#interact-btn:focus { outline: 2px solid black; } /* keyboard focus -> black outline */
+#interact-btn:active { background: #1c6ea4; }   /* while clicking -> blue */
+</code></pre>
+<style>
+#interact-btn:hover { background: #fac901; color: }   /* mouse over -> yellow */
+#interact-btn:focus { outline: 2px solid black; } /* focus -> red outline */
+#interact-btn:active { background: #dd0100;  }   /* while clicking -> red */
+</style>
+<div class="rendered">
+    <button id="interact-btn" class="interact-btn">Hover, Click, or Focus me</button>
+</p>
+</div>
+
+<p>Notice that if you write sth like this, the rule is only triggered if a button is on <code>:hover</code>, <code>:active</code>, and <code>:focus</code> at the same time.</p>
+<pre><code class="language-css">#bad-interact-btn:hover:active:focus { background: #1c6ea4; } </code></pre>
+<style>
+#bad-interact-btn:hover:active:focus { background: #dd0100; }
+</style>
+<div class="rendered">
+    <button id="bad-interact-btn" class="interact-btn">Bad Example</button>
+</p></div>
+
+<h3>Oder of styles</h3>
+<p>Also the order of the pseudo-classes in your CSS can affect how styles are applied. For example, if you define styles for <code>:hover</code> after <code>:active</code>, the hover styles will take precedence over the active styles when both states are active at the same time. It's important to consider the order of your CSS rules to ensure that the desired styles are applied correctly.</p>
+<pre><code class="language-css">/* The order of pseudo-classes matters */
+/* :active is only applied when btn is clicked but not hovered*/
+#oder-demo-btn:active { background: #1c6ea4; }   /* while clicking -> blue */
+#oder-demo-btn:hover { background: #fac901; }   /* mouse over -> yellow */
+#oder-demo-btn:focus { outline: 2px solid black; } /* keyboard focus -> black outline */</code></pre> 
+<style>
+#oder-demo-btn:active { background: #dd0100; }   
+#oder-demo-btn:focus { outline: 2px solid black; } /* keyboard focus -> black outline */
+#oder-demo-btn:hover { background: #fac901; }   /* mouse over -> yellow */
+</style>   
+<div class="rendered">
+    <button id="oder-demo-btn" class="interact-btn">Order Demo</button>
+</p></div>
+
+<h3>Mobile</h3>
+<p>On mobile devices, the <code>:hover</code> pseudo-class does not work as expected since there is no mouse cursor. Instead, you can use the <code>:active</code> pseudo-class to create interactive effects when users tap on elements. Additionally, you can use media queries to apply different styles for mobile devices to ensure a better user experience.</p>
+<pre><code class="language-css">@media (hover: none) {
+    .interact-btn:active {
+        background: #2980b9; /* Apply hover styles on tap for mobile */
+    }
+}</code></pre>
+
+<h3>Links: visited or not</h3>
+<p>There are also pseudo-classes that can be used to style links based on whether they have been visited or not. The <code>:visited</code> pseudo-class applies styles to links that the user has already visited, while the <code>:link</code> pseudo-class applies styles to links that have not been visited yet. This can be useful for providing visual feedback to users about which links they have already clicked on.</p>
+<pre><code class="language-css">a:link { color: blue; }    /* unvisited link */
+a:visited { color: purple; } /* visited link */</code></pre>
+<div class="rendered" style="display:flex; justify-content: space-evenly;">
+    <a href="#" style="color:blue;">Unvisited Link</a>
+    <a href="https://www.google.com" style="color:purple;">Visited Link</a>
+</div>
+</section>
+
+    <section id="cursor">
+         <h3>2. Cursor Styles</h3>
+            <p>Another very helpful but subtle visual cue for interactivity is changing the mouse cursor when the user interacts with an element. The CSS
+                 <code>cursor</code> property changes the mouse cursor when hovering over an element. Move your cursor over the examples below to see how the cursor changes accordingly.</p>
+<pre><code class="language-css">cursor: pointer; /* you can find other common values in the demo below */
+</code></pre>
+            <div class="rendered">
+                <span class="cursor-demo" style="cursor:pointer;">pointer</span>
+                <span class="cursor-demo" style="cursor:text">text</span>
+                <span class="cursor-demo" style="cursor:grab">grab</span>
+                <span class="cursor-demo" style="cursor:help;">help</span>
+                <span class="cursor-demo" style="cursor:crosshair;">crosshair</span>
+                <span class="cursor-demo" style="cursor:move;">move</span>
+                <span class="cursor-demo" style="cursor:not-allowed;">not-allowed</span>
+                <span class="cursor-demo" style="cursor:wait;">wait</span>
+                <span class="cursor-demo" style="cursor:zoom-in;">zoom-in</span>
+                <span class="cursor-demo" style="cursor:zoom-out;">zoom-out<span></span>
+            </div>
+
+            <p>It's important to use cursor styles appropriately to provide clear visual feedback to users about which elements are interactive and what kind of interaction they can expect. 
+                Some cursor changes are automatically applied by the browser for certain elements (e.g., pointer cursor for links or text cursor for input)
+                , but you can also customize the cursor for other elements or change the default behavior to adjust to your design and user experience needs.
+            And of course you can combine cursor styles with pseudo selectors to create more complex interactions and precise visual clues.
+            </p>
+            <div class="rendered" style="display:flex; justify-content: space-evenly;">
+                <button style="margin-top:0.5rem; color:#7f8c8d; font-size:0.9rem; cursor: pointer;">Clickable Button</button>
+                <a style="margin-top:0.5rem; color:#7f8c8d; font-size:0.9rem;" href="#">Clickable Link</a>   
+                <input style="margin-top:0.5rem; color:#7f8c8d; font-size:0.9rem;" type="text" placeholder="Type here">
+            </div>
+    </section>
+
+    <section id="css-transitions">
+        <h2>3. CSS Transitions</h2>
+        <p>CSS transitions allow you to smoothly animate changes to CSS properties when they occur. By defining a transition on an element, you can specify which properties should animate and how long the animation should take.
+        </p><p>Notice that we add the transition property to the default state of the element, and then specify the new styles in the other state (e.g., <code>:hover</code>). When the user interacts with the element, the transition will automatically animate the changes between the default and new styles, creating a smooth and visually appealing effect.
+        </p><p>For more demo of different transition effects, you can check out this <a href="https://cssreference.io/property/transition-timing-function/" target="_blank">demo</a>.
+        </p>
+        <pre><code class="language-css">.box {
+    width: 100px;
+    height: 100px;
+    background: var(--mondrian-blue);
+           /* property duration effect delay*/
+    transition: background 0.5s ease 0.3s; /* animate background changes */
+}
+.box:hover {
+    background: var(--mondrian-red); /* new background on hover */
+}</code></pre>
+<style>
+.box {
+    width: 200px;
+    height: 50px;
+    background: #225095;
+    transition: background 0.5s ease 0.3s; /* animate background changes */
+}
+.box:hover {
+    background: #dd0100; /* new background on hover */
+}
+</style>
+        <div class="rendered"  style="display:flex; flex-direction: column; align-items: center;">
+            <div class="box"></div>
+            <p style="margin-top:0.5rem; color:#7f8c8d; font-size:0.9rem;">Hover over the box to see the background color transition smoothly from blue to red.</p>
+        </div>
+
+        <h3>Change Multiple Property Values</h3>
+        <p>You can also specify multiple properties to transition by separating them with commas. This allows you to create more complex animations that involve changes to multiple CSS properties simultaneously.</p>
+<pre><code class="language-css">.multi-transition-box {
+    width: 100px;
+    height: 100px;
+    background: #225095;
+    /* animate background and transform changes */
+    transition: background 0.5s ease, transform 1s ease-in; 
+}
+.multi-transition-box:hover {
+    background: #dd0100; /* new background on hover */
+    transform: scale(0.5); /* scale down the box on hover */
+}</code></pre>
+<style>.multi-transition-box {
+    width: 100px;
+    height: 100px;
+    background: #225095;
+    transition: background 0.5s ease, transform 1s ease-in; /* animate background and transform changes */
+}
+.multi-transition-box:hover {
+    background: #dd0100; /* new background on hover */
+    transform: scale(0.5); /* scale up the box on hover */
+}</style>
+        <div class="rendered" style="display:flex; flex-direction: column; align-items: center;">
+            <div class="multi-transition-box"></div>
+            <p style="margin-top:0.5rem; color:#7f8c8d; font-size:0.9rem;">Hover over the box to see both the background color transition and the scaling effect happen simultaneously, creating a more dynamic interaction.</p>
+        </div>
+    </section>
+    
+    <section id="css-transforms">
+        <h2>4. CSS Transforms</h2>
+        <p>CSS transforms allow you to apply various transformations to elements, such as scaling, rotating, skewing, and translating. 
+            These transformations can be used to create dynamic and interactive effects on your web page.
+        For more demo of different transform effects, you can check out this <a href="https://cssreference.io/property/transform/" target="_blank">demo</a>.
+    </p>
+        <pre><code class="language-css">#box_transform {
+    width: 100px;
+    height: 100px;
+}
+#ox_transform:hover {
+    transform: rotate(30deg) scale(1.5); /* rotate and scale the box on hover */
+}</code></pre>
+<style>
+#box_transform {
+    width: 100px;
+    height: 100px;
+    background: #225095;
+    transition: transform 0.5s ease; /* animate transform changes */
+}
+#box_transform:hover {
+    transform: rotate(30deg) scale(1.5); /* rotate and scale the box on hover */
+}</style>   
+        <div class="rendered" style="display:flex; flex-direction: column; align-items: center;">
+            <div id="box_transform"></div>
+            <p style="margin-top:0.5rem; color:#7f8c8d; font-size:0.9rem;">Hover over the box to see it rotate 30 degrees and scale up to 1.5 times its original size, creating a dynamic and interactive effect.</p>
+        </div>
+    </section>
+
+    <section class="exercise">
+        <p>Exercise: Now with what we have learnt, let's create a button together in <a href="https://codepen.io/pen" target="_blank">CodePen</a>!</p>
+    </section>
+
+<!-- Advanced CSS -->
+    <section id="css-animation">
+        <h2>5.CSS Animation</h2>
+        <p>If transition is not enough for what you have in mind, CSS animations allow you to create more complex animations by defining keyframes that specify the styles at various points during the animation sequence. You can control the duration, timing, and iteration count of the animation.
+        For more demo of different animation effects, you can check out this <a href="https://cssreference.io/property/animation/" target="_blank">demo</a>.
+        </p>
+        <pre><code class="language-css">@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+.bounce-box {
+    width: 100px;
+    height: 100px;
+    background: gray;
+    margin-top: 1rem;
+    animation: bounce 1s infinite; /* apply the bounce animation */
+}</code></pre>
+<style>
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+.bounce-box {
+    width: 100px;
+    height: 100px;
+    background: gray;
+    animation: bounce 1s infinite; /* apply the bounce animation */
+    border-radius: 50%;
+    margin-top: 1rem;
+}
+</style>
+        <div class="rendered" style="display:flex; flex-direction: column; align-items: center;">
+            <div class="bounce-box"></div>
+            <p style="margin-top:0.5rem; color:#7f8c8d; font-size:0.9rem;">The circle will continuously bounce up and down, creating a lively effect.</p>
+        </div>
+    </section>
+
+    <section id="css-variables">
+    <!-- https://bitsofco.de/when-do-the-hover-focus-and-active-pseudo-classes-apply/ -->
+             
+        <h3>6. CSS Variables</h3>
+        <p>We can also declare variables in css, which allows you to store values that can be reused throughout your CSS to achieve consistency. This makes it easier to maintain and update your styles, as you can change the value in one place and have it reflected everywhere the variable is used.
+        </p>
+
+        <p>
+            One of the most common use cases for CSS variables is to define a color scheme for a website. By declaring color variables at the root level, you can easily apply consistent colors across your entire site and quickly update the color scheme by changing the variable values.
+        </p>
+        <pre><code class="language-css">
+:root {
+    --hover-color:#dd0100;
+    --button-color:#fac901;
+    --button-width: 200px;
+}
+.button {
+    background: var(--button-color);
+    color: white;
+    padding: 0.7rem 1.2rem;
+    border-radius: 4px;
+    width: var(--button-width);
+}
+.button:hover {
+    background: var(--hover-color);
+}</code></pre>
+<style>
+:root {
+    --hover-color:#dd0100;
+    --button-color:#fac901;
+    --button-width: 200px;
+}
+.button {
+    background: var(--button-color);
+    color: white;
+    padding: 0.7rem 1.2rem;
+    border-radius: 4px;
+    border:none;
+    width: var(--button-width);
+}
+.button:hover {
+    background: var(--hover-color);
+}
+</style>
+        <div class="rendered">
+            <button class="button">Hover me</button>
+            <p style="margin-top:0.5rem; color:#7f8c8d; font-size:0.9rem;">The button uses CSS variables for its colors, making it easy to update the color scheme by changing the variable values.</p>
+        </div>  
+    </section>
+
+    <section id="css-functions">
+        <h3>7. CSS Functions</h3>
+        <p>CSS functions allow you to perform calculations and manipulate values directly within your CSS. This can be useful for creating dynamic styles that adapt to different screen sizes or user interactions.
+            You will often see CSS functions used in combination with other properties to create responsive designs, you will come across them as you explore code examples or websites from others. For a reference of different CSS functions, you can check out this <a href="https://www.w3schools.com/cssref/css_functions.php" target="_blank">css function reference list</a>.
+        </p>
+        <pre><code class="language-css">.box {
+    width: calc(20% - 40px); /* Calculate width based on parent container */
+    background: hsl(200, 50%, 50%); /* Use HSL color function */
+}
+.box:hover {
+    transform: translateX(10px); /* Translate in X Axis */
+}</code></pre>
+<style> 
+.box:hover {
+    transform: translateX(10px); /* Translate in X Axis */
+}
+</style>
+        <div class="rendered">
+            <div class="box" style="width: calc(20% - 40px); background: hsl(200, 50%, 50%); height:50px; margin:1rem auto;"></div>
+            <p style="margin-top:0.5rem; color:#7f8c8d; font-size:0.9rem;">The box uses CSS functions to calculate its width, set its background color using HSL, and apply a rotation transform.</p>
+        </div>
+    </section>
+
+    <section id="css-pseudo-elements">
+        <h3>8. CSS Pseudo-Elements</h3>
+        <p>CSS pseudo-elements allow you to style specific parts of an element or insert content before or after an element without needing additional HTML markup. This can be useful for adding decorative elements, icons, or additional information without cluttering your HTML.</p>
+        
+        <h3>::before, ::after</h3>
+        <pre><code class="language-css">#emoji_button::before {
+    content: "🔥"; /* Add a fire emoji before the button text */
+    margin-right: 0.5rem;
+}
+#emoji_button:hover::after {
+    content: "✨"; /* Add a sparkle emoji after the button text */
+    margin-left: 0.3rem;
+}</code></pre>
+<style>
+#emoji_button {
+    width:130px;
+    padding: 0.5rem;
+    background: #fefefe;
+    border: 2px solid #bdc3c7;
+    text-align: left;
+}
+#emoji_button::before {
+    content: "🔥"; /* Add a fire emoji before the button text */
+    margin-right: 0.3rem;
+}
+#emoji_button:hover::after {
+    content: "✨"; /* Add a sparkle emoji after the button text */
+    margin-left: 0.3rem;
+}
+</style>
+        <div class="rendered">
+            <button id="emoji_button">Hover me</button>
+            <p style="margin-top:0.5rem; color:#7f8c8d; font-size:0.9rem;">The button uses pseudo-elements to add decorative emojis before and after the button text, enhancing its visual appeal without additional HTML.</p>
+        </div>
+    </section>
+
+    <p>Sometimes you may also see pseudo-elements used to create custom shapes or effects, such as adding a decorative border, shadow or image. By using pseudo-elements creatively, you can enhance the design and functionality of your web page without needing to add extra HTML elements.
+    </p>
+    <h3>::first-letter</h3>
+
+    <p>Another useful pseudo-element is <code>::first-letter</code>, which allows you to style the first letter of an element. This can be used to create drop caps or add emphasis to the first letter of a paragraph.</p>
+<pre><code class="language-css">p::first-letter {
+    font-size: 4em; /* Make the first letter larger */
+    color: #e74c3c; /* Change the color of the first letter */
+    float: left; /* Float the first letter to the left */
+    margin-right: 0.1em; /* Add some space after the first letter */
+    font-family: 'Georgia', serif; /* Use a serif font for the first letter */
+}</code></pre>
+<style>p.pseudeo-demo::first-letter {
+    font-size: 4em; /* Make the first letter larger */
+    color: #e74c3c; /* Change the color of the first letter */
+    float: left; /* Float the first letter to the left */       
+    margin-right: 0.1em; /* Add some space after the first letter */
+    font-family: 'Georgia', serif; /* Use a serif font for the first letter */
+}</style>
+        <div class="rendered" style="max-width: 600px; margin: 1rem auto;">
+            <p class="pseudeo-demo">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+    voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p> 
+            <p style="margin-top:0.5rem; color:#7f8c8d; font-size:0.9rem;">The first letter of the paragraph is styled to be larger, red, and floated to the left, creating a drop cap effect.</p>
+        </div>  
+
+ </main>
+</body>
+</html>

@@ -933,6 +933,44 @@ opacity:0; /* element is fully transparent but still takes up space and can be i
 
         </section>
 
+       <section id="list-menu">
+        <h2>7. List</h2>
+            <p>Lists are a common way to structure content, and CSS allows you to style them in various ways. By default, unordered lists (<code>&lt;ul&gt;</code>) have bullet points, and ordered lists (<code>&lt;ol&gt;</code>) have numbers. You can remove these default styles and create custom navigation menus or item lists.</p>
+
+
+            <p>The pattern is simple: start with a <code>&lt;ul&gt;</code>, remove <code>list-style</code> and default
+                spacing, arrange items horizontally with <code>display: flex</code>, and style the <code>&lt;a&gt;</code>
+                tags as block-level buttons. This approach is accessible, responsive-ready, and works across all browsers.
+            </p>
+
+            <pre><code class="language-css">/* Here we are showing a simple way to create a menu combining lists and links.*/             
+.nav-menu {
+    list-style: none; /* remove bullets */
+    padding: 0;       /* remove default padding */
+    margin: 0;        /* remove default margin */
+    display: flex;    /* arrange items horizontally */
+    gap: 1rem;        /* space between items */
+}</code></pre>
+<style>
+.nav-menu {
+    list-style: none; /* remove bullets */
+    padding: 0;       /* remove default padding */
+    margin: 0;        /* remove default margin */
+    display: flex;    /* arrange items horizontally */
+    gap: 1rem;        /* space between items */
+}
+</style>
+            <div class="rendered">
+                <ul class="nav-menu">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#">Courses</a></li>
+                    <li><a href="#">Schedule</a></li>
+                    <li><a href="#">Assignments</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+    </section>
+
 
       <section class="exercise">
         <h2>Exercise 2 </h2> -> <a href="exercise2.html" target="_blank" >Create a character card</a>
