@@ -90,7 +90,10 @@ const elements = document.querySelectorAll(".myClass"); </code></pre>
             For example, we can create a button that changes its text when clicked:</p>
         <pre><code class="language-javascript">const button = document.getElementById("myButton");
 button.addEventListener("click", function() {
-    button.textContent = Date(); // We can change the HTML 
+
+    button.textContent = Date(); // We can change the HTML Content
+    // We can also change the HTML content with HTML tags
+    // button.innerHTML = "&lt;strong&gt;Clicked!&lt;/strong&gt;";
     button.style.backgroundColor = "orange"; // and the CSS
 });</code></pre>
     <div class="rendered">
@@ -103,6 +106,33 @@ button.addEventListener("click", function() {
             button.style.backgroundColor = "orange"; // Change background color 
         });
     </script>
+
+    <p> 
+        Another useful case is to toggle between two states when a button is clicked.
+        In such cases one can create a new class for this new state and toggle it with Javascript.
+        Here we are just showcasing hiding/showing an image. But one can pack as much as css you want under this other class to change the style of one or multiple elements.
+    </p>
+    <pre><code class="language-javascript">
+const img = document.getElementById("img");
+const toggleButton = document.getElementById("toggleButton");
+toggleButton.addEventListener("click", function() {
+    console.log(img);
+    img.classList.toggle("hide")
+});
+    </code></pre>
+<div class="rendered">
+    <button id="toggleButton">Toggle Button</button>
+    <img id="img" width="200px" src="../images/mondrian.png" alt="">
+</div>
+<script>
+const img = document.getElementById("img");
+const toggleButton = document.getElementById("toggleButton");
+console.log(toggleButton);
+toggleButton.addEventListener("click", function() {
+    console.log(img);
+    img.classList.toggle("hide")
+});
+</script>
         <h3>Event Listeners</h3>
         <p>Event listeners are a fundamental part of JavaScript interactivity. They allow you
 to respond to various user actions such as clicks, mouse movements, keyboard input, and more. 
@@ -136,6 +166,10 @@ But for more complex ones, proper understanding of programming concepts and Java
 </p><p>
 We won't teach you programming in JS in this class. But we will cover more advanced Javascipt topics that are useful for web development in future sessions.
 </p>
+
+    </section>
+        <section class="exercise">
+        <p>Exercise: Now let's add some javascript to our button in CodePen</p>
     </section>
 </main>
 </body>
