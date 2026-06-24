@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "name": "MDN Web Docs",
+    "description": "The most comprehensive reference for HTML, CSS and JavaScript. Mozilla's official documentation.",
+    "url": "https://developer.mozilla.org",
+    "tags": ["HTML", "CSS", "JavaScript", "Reference"]
+  },
+  {
+    "id": 2,
+    "name": "Can I Use",
+    "description": "Check browser support for any CSS or JavaScript feature before you use it in production.",
+    "url": "https://caniuse.com",
+    "tags": ["CSS", "JavaScript", "Reference", "Tool"]
+  },
+  {
+    "id": 3,
+    "name": "CSS-Tricks",
+    "description": "Guides, snippets, and a complete almanac of CSS properties with practical examples.",
+    "url": "https://css-tricks.com",
+    "tags": ["CSS", "Learning", "Reference"]
+  },
+  {
+    "id": 4,
+    "name": "CodePen",
+    "description": "Online code editor for testing HTML/CSS/JS snippets. Great for quick experiments and sharing.",
+    "url": "https://codepen.io",
+    "tags": ["HTML", "CSS", "JavaScript", "Tool"]
+  },
+  {
+    "id": 5,
+    "name": "Flexbox Froggy",
+    "description": "A game that teaches CSS flexbox by helping frogs reach their lily pads. Fun and effective.",
+    "url": "https://flexboxfroggy.com",
+    "tags": ["CSS", "Learning"]
+  },
+  {
+    "id": 6,
+    "name": "JavaScript.info",
+    "description": "Modern JavaScript tutorial from basics to advanced topics, with clear examples throughout.",
+    "url": "https://javascript.info",
+    "tags": ["JavaScript", "Learning", "Reference"]
+  },
+  {
+    "id": 7,
+    "name": "Grid Garden",
+    "description": "Learn CSS Grid by watering carrot patches. From the same folks who made Flexbox Froggy.",
+    "url": "https://cssgridgarden.com",
+    "tags": ["CSS", "Learning"]
+  },
+  {
+    "id": 8,
+    "name": "PageSpeed Insights",
+    "description": "Google's tool for measuring page performance and getting actionable optimisation tips.",
+    "url": "https://pagespeed.web.dev",
+    "tags": ["Tool", "HTML", "CSS", "JavaScript"]
+  },
+  {
+    "id": 9,
+    "name": "Frontend Mentor",
+    "description": "Real-world HTML/CSS/JS challenges with professional designs. Build your portfolio.",
+    "url": "https://www.frontendmentor.io",
+    "tags": ["HTML", "CSS", "JavaScript", "Learning"]
+  },
+  {
+    "id": 10,
+    "name": "SVG Repo",
+    "description": "Free, high-quality SVG icons and vector graphics for your web projects. No attribution needed.",
+    "url": "https://www.svgrepo.com",
+    "tags": ["Tool", "HTML"]
+  }
+]

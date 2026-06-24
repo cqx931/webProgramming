@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task 2: Data & Filtering — Web Programming SoSe 2026</title>
+
+  <style>
+    /* ============================================================
+       PAGE LAYOUT — you don't need to change anything here
+       ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 2rem;
+      min-height: 100vh;
+      background: #f5f5f5;
+      font-family: Optima, Candara, 'Noto Sans', sans-serif;
+      color: #333;
+    }
+
+    .page {
+      max-width: 720px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 8px 30px rgba(15, 23, 42, 0.08);
+      padding: 2rem;
+    }
+
+    h1 {
+      margin: 0 0 0.25rem;
+      font-size: 1.5rem;
+    }
+    .subtitle {
+      color: #6b7280;
+      font-size: 0.9rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .task-box {
+      background: #fef9e7;
+      border-left: 4px solid #f1c40f;
+      padding: 0.7rem 1rem;
+      margin: 1rem 0;
+      border-radius: 0 4px 4px 0;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+    .task-box strong { color: #b8860b; }
+
+    /* ============================================================
+       FILTER BUTTONS
+       ============================================================ */
+    .filter-bar {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      margin: 1.2rem 0;
+    }
+    .filter-btn {
+      padding: 0.3rem 0.7rem;
+      border: 1.5px solid #d1d5db;
+      border-radius: 20px;
+      background: white;
+      font-size: 0.78rem;
+      cursor: pointer;
+      color: #374151;
+      transition: all 0.15s;
+    }
+    .filter-btn:hover {
+      border-color: #2563eb;
+      color: #2563eb;
+    }
+    .filter-btn.active {
+      background: #2563eb;
+      border-color: #2563eb;
+      color: white;
+    }
+
+    /* ============================================================
+       CARD GRID
+       ============================================================ */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .card {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 1rem;
+      transition: box-shadow 0.2s;
+    }
+    .card:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+    }
+
+    .card h3 {
+      margin: 0 0 0.3rem;
+      font-size: 1rem;
+      color: #111827;
+    }
+    .card h3 a {
+      color: inherit;
+      text-decoration: none;
+    }
+    .card h3 a:hover {
+      color: #2563eb;
+    }
+
+    .card p {
+      margin: 0 0 0.7rem;
+      font-size: 0.82rem;
+      color: #6b7280;
+      line-height: 1.5;
+    }
+
+    .card .tags {
+      display: flex;
+      gap: 0.3rem;
+      flex-wrap: wrap;
+    }
+    .card .tag {
+      display: inline-block;
+      background: #e0e7ff;
+      color: #3730a3;
+      font-size: 0.68rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="page">
+
+  <h1>Exercise: Populate Data from JSON &amp; Filtering</h1>
+  <p class="subtitle">Render DOM elements from JSON data and filter them by tag — all in vanilla JavaScript.</p>
+<p>To get started, download this html and <a href="data.json" target="_blank">the json file</a> that contains the data and put them into one folder.</p>
+  <!-- ============================================================
+       INSTRUCTIONS
+       ============================================================ -->
+  <div class="task-box">
+    <strong>Part A — Fetch data &amp; render cards</strong><br>
+    <ol style="margin:0.4rem 0 0; padding-left:1.2em;">
+      <li>Data is preloaded for you from data.json</li>
+      <li>Loop over the result and create one
+          <code>&lt;div class="card"&gt;</code> per item.</li>
+      <li>Insert them into <code>#card-container</code>.</li>
+    </ol>
+
+  </div>
+
+  <div class="task-box">
+    <strong>Part B — Filter by tag</strong><br>
+    Add click listeners to the filter buttons. When a button is clicked, show only
+    cards whose <code>.tags</code> array includes that tag. Clicking "All" shows everything.
+    Highlight the active filter button.
+  </div>
+
+  <!-- ============================================================
+       FILTER BAR — buttons are already here; make them work!
+       ============================================================ -->
+  <div class="filter-bar" id="filter-bar">
+    <button class="filter-btn active" data-tag="all">All</button>
+    <button class="filter-btn" data-tag="HTML">HTML</button>
+    <button class="filter-btn" data-tag="CSS">CSS</button>
+    <button class="filter-btn" data-tag="JavaScript">JavaScript</button>
+    <button class="filter-btn" data-tag="Tool">Tool</button>
+    <button class="filter-btn" data-tag="Reference">Reference</button>
+    <button class="filter-btn" data-tag="Learning">Learning</button>
+  </div>
+
+  <!-- ============================================================
+       CARD CONTAINER — cards will appear here
+       ============================================================ -->
+  <div class="card-grid" id="card-container">
+    <!-- TODO Part A: your generated cards should go here -->
+  </div>
+
+</div>
+<script>
+const data = [
+  { id: 1,  name: "MDN Web Docs",       description: "The most comprehensive reference for HTML, CSS and JavaScript. Mozilla's official documentation.",       url: "https://developer.mozilla.org",  tags: ["HTML", "CSS", "JavaScript", "Reference"] },
+  { id: 2,  name: "Can I Use",           description: "Check browser support for any CSS or JavaScript feature before you use it in production.",               url: "https://caniuse.com",            tags: ["CSS", "JavaScript", "Reference", "Tool"] },
+  { id: 3,  name: "CSS-Tricks",          description: "Guides, snippets, and a complete almanac of CSS properties with practical examples.",                   url: "https://css-tricks.com",         tags: ["CSS", "Learning", "Reference"] },
+  { id: 4,  name: "CodePen",             description: "Online code editor for testing HTML/CSS/JS snippets. Great for quick experiments and sharing.",          url: "https://codepen.io",             tags: ["HTML", "CSS", "JavaScript", "Tool"] },
+  { id: 5,  name: "Flexbox Froggy",      description: "A game that teaches CSS flexbox by helping frogs reach their lily pads. Fun and effective.",             url: "https://flexboxfroggy.com",      tags: ["CSS", "Learning"] },
+  { id: 6,  name: "JavaScript.info",     description: "Modern JavaScript tutorial from basics to advanced topics, with clear examples throughout.",             url: "https://javascript.info",        tags: ["JavaScript", "Learning", "Reference"] },
+  { id: 7,  name: "Grid Garden",         description: "Learn CSS Grid by watering carrot patches. From the same folks who made Flexbox Froggy.",                url: "https://cssgridgarden.com",      tags: ["CSS", "Learning"] },
+  { id: 8,  name: "PageSpeed Insights",  description: "Google's tool for measuring page performance and getting actionable optimisation tips.",                  url: "https://pagespeed.web.dev",      tags: ["Tool", "HTML", "CSS", "JavaScript"] },
+  { id: 9,  name: "Frontend Mentor",     description: "Real-world HTML/CSS/JS challenges with professional designs. Build your portfolio.",                     url: "https://www.frontendmentor.io",  tags: ["HTML", "CSS", "JavaScript", "Learning"] },
+  { id: 10, name: "SVG Repo",            description: "Free, high-quality SVG icons and vector graphics for your web projects. No attribution needed.",          url: "https://www.svgrepo.com",        tags: ["Tool", "HTML"] }
+];
+</script>
+
+<script>
+
+function renderCards(data) {
+// ──────────────────────────────────────────────────
+//  Render Cards
+// ──────────────────────────────────────────────────
+//
+// 1. Loop over the returned array and build a card for each item:
+//    <div class="card">
+//      <h3><a href="URL">NAME</a></h3>
+//      <p>DESCRIPTION</p>
+//      <div class="tags">
+//        <span class="tag">Tag1</span>
+//        <span class="tag">Tag2</span>
+//      </div>
+//    </div>
+// 2. Insert all cards into #card-container.
+// ============  WRITE YOUR CODE BELOW  ============
+let html = '';
+
+data.forEach(function(item){
+ console.log(item)
+
+  html += '';
+})
+
+const container = document.getElementById("card-container");
+container.innerHTML = html;
+}
+
+function filterCards(data){
+// ──────────────────────────────────────────────────
+//  Filter by tag
+// ──────────────────────────────────────────────────
+// 1. Grab all buttons inside #filter-bar
+// 2. For each button, add a 'click' event listener
+// 3. When clicked:
+//    a. Remove the "active" class from ALL buttons
+//    b. Add the "active" class to the clicked button
+//    c. Read the clicked button's data-tag value
+//    d. If data-tag === "all", show every card
+//    e. Otherwise, hide cards that don't have that tag
+//       (use element.style.display = "none" to hide,
+//        element.style.display = "" to show again)
+//
+// HINT: each card's .tags span elements contain the tag names.
+//       You can check if a card has a tag by looking at the span text.
+// ============  WRITE YOUR CODE BELOW  ============
+  return data
+}
+
+const filtered_data = filterCards(data);
+renderCards(filtered_data);
+
+</script>
+
+</body>
+</html>

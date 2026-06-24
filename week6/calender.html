@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calendar Demo</title>
+
+  <!-- FullCalendar v6: one JS + one CSS from CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+  <link href="../css/main.css" rel="stylesheet" />   
+  <style>
+    body {
+      margin: 0;
+      padding: 1rem;
+      min-height: 100vh;
+      background: #f5f5f5;
+      font-family: Optima, Candara, 'Noto Sans', sans-serif;
+      color: #333;
+    }
+
+    .page {
+      max-width: 360px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 12px rgba(15, 23, 42, 0.10);
+      padding: 1rem 1rem 0.8rem;
+    }
+
+    h1 {
+      margin: 0 0 0.3rem;
+      font-size: 1rem;
+      color: #111827;
+    }
+
+    p.legend {
+      color: #6b7280;
+      font-size: 0.75rem;
+      margin-bottom: 0.6rem;
+      line-height: 1.4;
+    }
+
+    /* colour-dot key */
+    .key {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.6rem;
+      font-size: 0.7rem;
+    }
+    .key span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+    .key .dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 2px;
+    }
+
+    /* make the calendar compact */
+    #calendar {
+      max-width: 400px;
+      font-size: 0.72rem;
+    }
+
+    /* shrink toolbar */
+    .fc .fc-toolbar-title {
+      font-size: 0.85rem !important;
+    }
+    .fc .fc-button {
+      padding: 0.15rem 0.4rem !important;
+      font-size: 0.7rem !important;
+    }
+
+    /* shrink day cells & event bars */
+    .fc .fc-daygrid-day-frame {
+      min-height: 2.2rem !important;
+    }
+    .fc .fc-daygrid-day-top {
+      font-size: 0.7rem;
+    }
+    .fc .fc-daygrid-event {
+      font-size: 0.6rem;
+      padding: 1px 3px;
+      margin-bottom: 1px;
+    }
+    .fc .fc-daygrid-more-link {
+      font-size: 0.6rem;
+    }
+
+    /* day-header row (Mon, Tue, …) */
+    .fc .fc-col-header-cell-cushion {
+      font-size: 0.7rem;
+    }
+
+    /* button accent */
+    .fc .fc-button-primary {
+      background-color: #2563eb;
+      border-color: #2563eb;
+    }
+  </style>
+</head>
+<body>
+
+<div class="page">
+  <h1>Calendar Demo</h1>
+  <p class="legend">
+    <a href="https://fullcalendar.io">FullCalendar</a> is a free JavaScript library that turns a <code>&lt;div&gt;</code> into an
+    interactive calendar. In this demo we showcase the use case where you use it to display a list of events in calendar format. 
+    For more use cases or features, please refer to the official documentation.
+  </p>
+
+  <div class="key">
+    <span><span class="dot" style="background:#2563eb"></span> Class session</span>
+    <span><span class="dot" style="background:#dc2626"></span> Assignment due</span>
+    <span><span class="dot" style="background:#16a34a"></span> Holiday / no class</span>
+  </div>
+
+  <!-- The calendar renders inside this empty div -->
+  <div id="calendar"></div>
+</div>
+
+<script>
+  /*
+    FullCalendar expects two things:
+      1. A DOM element to render into    → document.getElementById('calendar')
+      2. An object with options          → { events: […], headerToolbar: … }
+  */
+
+  // 1 ── Placeholder element
+  const calendarEl = document.getElementById('calendar');
+
+  // 2 ── Event data (each object = one calendar entry)
+  const events = [
+    /* ---------- class sessions ---------- */
+    {
+      title:   'Week 1: HTML Basics',
+      start:   '2026-04-16',
+      color:   '#2563eb',       // blue
+    },
+    {
+      title:   'Week 2: CSS Basics',
+      start:   '2026-04-30',
+      color:   '#2563eb',
+    },
+    {
+      title:   'Week 3: CSS Layout',
+      start:   '2026-05-28',
+      color:   '#2563eb',
+    },
+    {
+      title:   'Week 4: Advanced CSS & JS Intro',
+      start:   '2026-06-06',
+      color:   '#2563eb',
+    },
+    {
+      title:   'Week 5: Project Pitch',
+      start:   '2026-06-11',
+      color:   '#2563eb',
+    },
+    {
+      title:   'Week 6: More JavaScript',
+      start:   '2026-06-25',
+      color:   '#2563eb',
+    },
+     {
+      title:   'Week 6: Deployment & User Testing',
+      start:   '2026-06-26',
+      color:   '#2563eb',
+    },
+    {
+      title:   'Week 7: Presentation',
+      start:   '2026-07-09',
+      color:   '#2563eb',
+    },
+
+    /* ---------- assignments ---------- */
+    {
+      title:   'Assignment 1',
+      start:   '2026-04-29',
+      color:   '#dc2626',       // red
+    },
+    {
+      title:   'Assignment 2',
+      start:   '2026-05-13',
+      color:   '#dc2626',
+    },
+    {
+      title:   'Assignment 3',
+      start:   '2026-06-04',
+      color:   '#dc2626',
+    },
+    {
+      title:   'Assignment 4',
+      start:   '2026-06-11',
+      color:   '#dc2626',
+    },
+    {
+      title:   'Assignment 5',
+      start:   '2026-06-24',
+      color:   '#dc2626',
+    },
+
+    /* ---------- holidays ---------- */
+    {
+      title:   'No class — Public Holiday',
+      start:   '2026-05-14',
+      color:   '#16a34a',
+    },
+  ];
+
+  // 3 ── Build the calendar
+  const calendar = new FullCalendar.Calendar(calendarEl, {
+
+    // Which view to show first
+    initialView: 'dayGridMonth',
+
+    // Toolbar buttons (previous, next, today, and view switchers)
+    headerToolbar: {
+      left:   'prev,next today',
+      center: 'title',
+      right:  'dayGridMonth,listWeek'
+    },
+
+    // Pass the event list from above
+    events: events,
+
+    // Make event titles fit on one line inside each day cell
+    eventDisplay: 'block',
+
+    // Height adapts to content (no scrollbar inside the calendar)
+    height: 'auto',
+
+    // Show more info on click
+    eventClick: function (info) {
+      alert(
+        'Event: ' + info.event.title +
+        '\nDate: ' + info.event.start.toLocaleDateString('en-DE', {
+          weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+        })
+      );
+    },
+
+    // --- locale (week start = Monday) ---
+    firstDay: 1,
+
+    // --- disable Google Calendar / external integrations ---
+    googleCalendarApiKey: '',
+
+  });
+
+  // 4 ── Put it on the page
+  calendar.render();
+</script>
+
+</body>
+</html>

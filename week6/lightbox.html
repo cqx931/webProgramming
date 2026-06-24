@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FsLightbox Demo</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #f5f5f5;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      color: #fff;
+      padding: 60px 20px 40px;
+      text-align: center;
+    }
+    header h1 { font-size: 2.4em; margin-bottom: 8px; }
+    header p  { font-size: 1.1em; opacity: 0.8; }
+    .badge {
+      display: inline-block;
+      background: #e94560;
+      color: #fff;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 0.75em;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 20px 60px;
+    }
+
+    section {
+      background: #fff;
+      border-radius: 12px;
+      padding: 32px;
+      margin-bottom: 32px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+    section h2 {
+      font-size: 1.5em;
+      margin-bottom: 6px;
+      color: #1a1a2e;
+    }
+    section .desc {
+      color: #666;
+      font-size: 0.95em;
+      margin-bottom: 20px;
+    }
+
+    /* ── Gallery grid ── */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 14px;
+    }
+    .gallery a {
+      display: block;
+      overflow: hidden;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-decoration: none;
+    }
+    .gallery a:hover {
+      transform: scale(1.03);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
+    .gallery img, .gallery video {
+      display: block;
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+    }
+    .thumb-caption {
+      padding: 10px 12px;
+      font-size: 0.85em;
+      color: #555;
+      background: #fafafa;
+    }
+
+    /* ── Buttons ── */
+    .btn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+    button, .btn {
+      display: inline-block;
+      padding: 10px 22px;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.95em;
+      cursor: pointer;
+      background: #1a1a2e;
+      color: #fff;
+      transition: background 0.2s;
+    }
+    button:hover, .btn:hover { background: #e94560; }
+
+    /* ── Code block ── */
+    pre {
+      background: #1e1e2e;
+      color: #cdd6f4;
+      padding: 18px 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 0.85em;
+      margin-top: 16px;
+      line-height: 1.7;
+    }
+    pre .tag { color: #89b4fa; }
+    pre .attr { color: #a6e3a1; }
+    pre .val  { color: #fab387; }
+    pre .fn   { color: #cba6f7; }
+    pre .cmt  { color: #6c7086; }
+
+    /* ── Single-image triggers ── */
+    .inline-triggers {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .inline-triggers a {
+      text-decoration: underline;
+      color: #e94560;
+      font-weight: 600;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: #999;
+      font-size: 0.85em;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>FsLightbox Demo</h1>
+  <p>A vanilla JavaScript lightbox — no jQuery, no dependencies</p>
+</header>
+
+<main>
+
+  <!-- ============================================================ -->
+  <!-- 1. Basic Gallery -->
+  <!-- ============================================================ -->
+  <section>
+    <h2>1. Basic Image Gallery</h2>
+    <p class="desc">
+      Add <code>data-fslightbox="gallery1"</code> to any <code>&lt;a&gt;</code> tag.
+      All links sharing the same value become one navigable gallery.
+    </p>
+    <div class="gallery" id="gallery1">
+      <a data-fslightbox="gallery1" href="https://picsum.photos/id/1015/1920/1280">
+        <img src="https://picsum.photos/id/1015/400/300" alt="Mountain landscape">
+      </a>
+      <a data-fslightbox="gallery1" href="https://picsum.photos/id/1016/1920/1280">
+        <img src="https://picsum.photos/id/1016/400/300" alt="Mountain valley">
+      </a>
+      <a data-fslightbox="gallery1" href="https://picsum.photos/id/1018/1920/1280">
+        <img src="https://picsum.photos/id/1018/400/300" alt="Mountain reflection">
+      </a>
+      <a data-fslightbox="gallery1" href="https://picsum.photos/id/1019/1920/1280">
+        <img src="https://picsum.photos/id/1019/400/300" alt="Lake view">
+      </a>
+
+    </div>
+    <pre><span class="cmt">&lt;!-- All links with the same data-fslightbox value form ONE gallery --&gt;</span>
+<span class="tag">&lt;a</span> <span class="attr">data-fslightbox</span>=<span class="val">"gallery1"</span> <span class="attr">href</span>=<span class="val">"image-full.jpg"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;img</span> <span class="attr">src</span>=<span class="val">"thumb.jpg"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;/a&gt;</span></pre>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 2. Mixed Media (images + YouTube + HTML5 video)             -->
+  <!-- ============================================================ -->
+  <section>
+    <h2>2. Mixed Media Gallery</h2>
+    <p class="desc">
+      FsLightbox auto-detects the source type from the URL. Images, YouTube links, and HTML5 video all work in the same gallery.
+    </p>
+    <div class="gallery" id="gallery2">
+      <a data-fslightbox="gallery2" href="https://picsum.photos/id/1035/1920/1280">
+        <img src="https://picsum.photos/id/1035/400/300" alt="Green hills">
+        <div class="thumb-caption">Image</div>
+      </a>
+      <a data-fslightbox="gallery2" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
+        <img src="https://img.youtube.com/vi/dQw4w9WgXcQ/mqdefault.jpg" alt="YouTube thumbnail">
+        <div class="thumb-caption">YouTube video</div>
+      </a>
+      <a data-fslightbox="gallery2" href="https://picsum.photos/id/1043/1920/1280">
+        <img src="https://picsum.photos/id/1043/400/300" alt="Portrait view">
+        <div class="thumb-caption">Image</div>
+      </a>
+      <a data-fslightbox="gallery2" href="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4">
+        <img src="https://picsum.photos/id/1044/400/300" alt="Video placeholder">
+        <div class="thumb-caption">HTML5 video</div>
+      </a>
+    </div>
+    <pre><span class="cmt">&lt;!-- FsLightbox recognises the URL pattern automatically --&gt;</span>
+<span class="tag">&lt;a</span> <span class="attr">data-fslightbox</span>=<span class="val">"gallery2"</span> <span class="attr">href</span>=<span class="val">"photo.jpg"</span><span class="tag">&gt;</span>...<span class="tag">&lt;/a&gt;</span>
+<span class="tag">&lt;a</span> <span class="attr">data-fslightbox</span>=<span class="val">"gallery2"</span> <span class="attr">href</span>=<span class="val">"https://youtube.com/watch?v=..."</span><span class="tag">&gt;</span>...<span class="tag">&lt;/a&gt;</span>
+<span class="tag">&lt;a</span> <span class="attr">data-fslightbox</span>=<span class="val">"gallery2"</span> <span class="attr">href</span>=<span class="val">"video.mp4"</span><span class="tag">&gt;</span>...<span class="tag">&lt;/a&gt;</span></pre>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 3. Captions                                                  -->
+  <!-- ============================================================ -->
+  <section>
+    <h2>3. Captions</h2>
+    <p class="desc">
+      Use the <code>data-caption</code> attribute — HTML is fully supported for rich formatting.
+    </p>
+    <div class="gallery" id="gallery3">
+      <a data-fslightbox="gallery3"
+         data-caption="<h2>Mountain Sunrise</h2><p>Early morning in the Alps</p>"
+         href="https://picsum.photos/id/1045/1920/1280">
+        <img src="https://picsum.photos/id/1045/400/300" alt="Mountain sunrise">
+      </a>
+      <a data-fslightbox="gallery3"
+         data-caption="<h2>Ocean View</h2><p>Sunset on the coast</p>"
+         href="https://picsum.photos/id/1050/1920/1280">
+        <img src="https://picsum.photos/id/1050/400/300" alt="Ocean sunset">
+      </a>
+      <a data-fslightbox="gallery3"
+         data-caption="<h2>City Skyline</h2><p>Downtown at dusk</p>"
+         href="https://picsum.photos/id/1060/1920/1280">
+        <img src="https://picsum.photos/id/1060/400/300" alt="City skyline">
+      </a>
+    </div>
+    <pre><span class="tag">&lt;a</span>
+  <span class="attr">data-fslightbox</span>=<span class="val">"gallery3"</span>
+  <span class="attr">data-caption</span>=<span class="val">"&lt;h2&gt;Title&lt;/h2&gt;&lt;p&gt;Description&lt;/p&gt;"</span>
+  <span class="attr">href</span>=<span class="val">"image.jpg"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;img</span> <span class="attr">src</span>=<span class="val">"thumb.jpg"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;/a&gt;</span></pre>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 4. Multiple independent galleries                            -->
+  <!-- ============================================================ -->
+  <section>
+    <h2>4. Multiple Independent Galleries</h2>
+    <p class="desc">
+      Different <code>data-fslightbox</code> values create separate, isolated galleries.
+      Each gallery below only cycles through its own images.
+    </p>
+
+    <h3 style="margin-bottom:10px;">Gallery A — Nature</h3>
+    <div class="gallery" style="margin-bottom:20px;">
+      <a data-fslightbox="gallery-a" href="https://picsum.photos/id/100/1920/1280">
+        <img src="https://picsum.photos/id/100/400/300" alt="Beach">
+      </a>
+      <a data-fslightbox="gallery-a" href="https://picsum.photos/id/102/1920/1280">
+        <img src="https://picsum.photos/id/102/400/300" alt="Forest">
+      </a>
+      <a data-fslightbox="gallery-a" href="https://picsum.photos/id/104/1920/1280">
+        <img src="https://picsum.photos/id/104/400/300" alt="River">
+      </a>
+    </div>
+
+    <h3 style="margin-bottom:10px;">Gallery B — Architecture</h3>
+    <div class="gallery">
+      <a data-fslightbox="gallery-b" href="https://picsum.photos/id/164/1920/1280">
+        <img src="https://picsum.photos/id/164/400/300" alt="Bridge">
+      </a>
+      <a data-fslightbox="gallery-b" href="https://picsum.photos/id/169/1920/1280">
+        <img src="https://picsum.photos/id/169/400/300" alt="Building">
+      </a>
+      <a data-fslightbox="gallery-b" href="https://picsum.photos/id/177/1920/1280">
+        <img src="https://picsum.photos/id/177/400/300" alt="Street">
+      </a>
+    </div>
+
+    <pre><span class="cmt">&lt;!-- Gallery A --&gt;</span>
+<span class="tag">&lt;a</span> <span class="attr">data-fslightbox</span>=<span class="val">"gallery-a"</span> <span class="attr">href</span>=<span class="val">"nature1.jpg"</span><span class="tag">&gt;</span>...<span class="tag">&lt;/a&gt;</span>
+<span class="tag">&lt;a</span> <span class="attr">data-fslightbox</span>=<span class="val">"gallery-a"</span> <span class="attr">href</span>=<span class="val">"nature2.jpg"</span><span class="tag">&gt;</span>...<span class="tag">&lt;/a&gt;</span>
+
+<span class="cmt">&lt;!-- Gallery B -- entirely separate --&gt;</span>
+<span class="tag">&lt;a</span> <span class="attr">data-fslightbox</span>=<span class="val">"gallery-b"</span> <span class="attr">href</span>=<span class="val">"arch1.jpg"</span><span class="tag">&gt;</span>...<span class="tag">&lt;/a&gt;</span></pre>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 5. Inline text links                                         -->
+  <!-- ============================================================ -->
+  <section>
+    <h2>5. Inline Text Triggers</h2>
+    <p class="desc">
+      Links don't need thumbnails. Any <code>&lt;a&gt;</code> tag with <code>data-fslightbox</code> works — even plain text.
+    </p>
+    <div class="inline-triggers">
+      <a data-fslightbox="inline-gallery" href="https://picsum.photos/id/1080/1920/1280">
+        View a landscape
+      </a>
+      <span style="color:#999;">|</span>
+      <a data-fslightbox="inline-gallery" href="https://picsum.photos/id/1084/1920/1280">
+        View another landscape
+      </a>
+      <span style="color:#999;">|</span>
+      <a data-fslightbox="inline-gallery" href="https://picsum.photos/id/1090/1920/1280">
+        View a third landscape
+      </a>
+    </div>
+    <pre><span class="cmt">&lt;!-- Plain text links work fine -- no &lt;img&gt; needed --&gt;</span>
+<span class="tag">&lt;a</span> <span class="attr">data-fslightbox</span>=<span class="val">"gallery"</span> <span class="attr">href</span>=<span class="val">"photo.jpg"</span><span class="tag">&gt;</span>Click to view<span class="tag">&lt;/a&gt;</span></pre>
+  </section>
+
+
+  <!-- ============================================================ -->
+  <!-- 6. Dynamic Source Addition                                   -->
+  <!-- ============================================================ -->
+  <section>
+    <h2>6. Dynamic Source Addition</h2>
+    <p class="desc">
+      After adding new <code>&lt;a&gt;</code> tags to the DOM, call <code>refreshFsLightbox()</code>
+      so the lightbox picks them up.
+    </p>
+    <div id="dynamic-container" class="gallery" style="margin-bottom:14px;">
+      <a data-fslightbox="dynamic-gallery" href="https://picsum.photos/id/10/1920/1280">
+        <img src="https://picsum.photos/id/10/400/300" alt="Static image">
+        <div class="thumb-caption">Static slide</div>
+      </a>
+    </div>
+    <button onclick="addDynamicSlide()">Add another slide</button>
+
+    <pre><span class="cmt">// After dynamically inserting &lt;a&gt; tags...</span>
+<span class="fn">refreshFsLightbox</span>();  <span class="cmt">// let fslightbox re-scan the DOM</span></pre>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 7.  Custom Attributes                                        -->
+  <!-- ============================================================ -->
+  <section>
+    <h2>7. Custom Attributes</h2>
+    <p class="desc">
+      Any <code>data-*</code> attribute (except <code>data-fslightbox</code> and <code>data-caption</code>)
+      is passed through to the rendered source element. <code>data-alt</code> becomes the <code>alt</code>
+      attribute on the <code>&lt;img&gt;</code> inside the lightbox.
+    </p>
+    <div class="gallery" id="gallery4">
+      <a data-fslightbox="gallery4"
+         data-alt="A wooden pier stretching into a calm lake at sunset"
+         href="https://picsum.photos/id/110/1920/1280">
+        <img src="https://picsum.photos/id/110/400/300" alt="Pier at sunset">
+      </a>
+      <a data-fslightbox="gallery4"
+         data-alt="A lone tree on a hill under dramatic clouds"
+         href="https://picsum.photos/id/112/1920/1280">
+        <img src="https://picsum.photos/id/112/400/300" alt="Lone tree">
+      </a>
+    </div>
+    <pre><span class="cmt">&lt;!-- data-alt is passed to the full-size &lt;img&gt; in the lightbox --&gt;</span>
+<span class="tag">&lt;a</span> <span class="attr">data-fslightbox</span>=<span class="val">"gallery4"</span>
+   <span class="attr">data-alt</span>=<span class="val">"Detailed description — becomes alt text on the full image"</span>
+   <span class="attr">href</span>=<span class="val">"full-image.jpg"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;img</span> <span class="attr">src</span>=<span class="val">"thumb.jpg"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;/a&gt;</span></pre>
+  </section>
+
+</main>
+
+<footer>
+  FsLightbox Demo — built with the free (basic) version
+</footer>
+
+<!-- fslightbox CDN (basic/free version) -->
+<script src="https://cdn.jsdelivr.net/npm/fslightbox@3.7.5/index.js"></script>
+
+<script>
+  // ── Dynamic source addition ──
+  var dynamicCount = 0;
+  var dynamicIds = [20, 30, 40, 50, 60, 70, 80, 90];
+  function addDynamicSlide() {
+    if (dynamicCount >= dynamicIds.length) {
+      alert('No more slides to add!');
+      return;
+    }
+    var id = dynamicIds[dynamicCount];
+    dynamicCount++;
+
+    var a = document.createElement('a');
+    a.setAttribute('data-fslightbox', 'dynamic-gallery');
+    a.setAttribute('href', 'https://picsum.photos/id/' + id + '/1920/1280');
+
+    var img = document.createElement('img');
+    img.src = 'https://picsum.photos/id/' + id + '/400/300';
+    img.alt = 'Dynamically added image';
+    a.appendChild(img);
+
+    var cap = document.createElement('div');
+    cap.className = 'thumb-caption';
+    cap.textContent = 'Dynamically added (#' + dynamicCount + ')';
+    a.appendChild(cap);
+
+    document.getElementById('dynamic-container').appendChild(a);
+
+    // Re-scan the DOM so fslightbox knows about the new link
+    refreshFsLightbox();
+  }
+</script>
+
+</body>
+</html>
