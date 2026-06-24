@@ -140,7 +140,6 @@
 
   <h1>Exercise: Populate Data from JSON &amp; Filtering</h1>
   <p class="subtitle">Render DOM elements from JSON data and filter them by tag — all in vanilla JavaScript.</p>
-<p>To get started, download this html and <a href="data.json" target="_blank">the json file</a> that contains the data and put them into one folder.</p>
   <!-- ============================================================
        INSTRUCTIONS
        ============================================================ -->
@@ -216,16 +215,6 @@ function renderCards(data) {
 //    </div>
 // 2. Insert all cards into #card-container.
 // ============  WRITE YOUR CODE BELOW  ============
-let html = '';
-
-data.forEach(function(item){
- console.log(item)
-
-  html += '';
-})
-
-const container = document.getElementById("card-container");
-container.innerHTML = html;
 }
 
 function filterCards(data){
