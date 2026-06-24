@@ -202,17 +202,19 @@ function renderCards(data) {
 // ──────────────────────────────────────────────────
 //  Render Cards
 // ──────────────────────────────────────────────────
-//
 // 1. Loop over the returned array and build a card for each item:
-//    <div class="card">
-//      <h3><a href="URL">NAME</a></h3>
-//      <p>DESCRIPTION</p>
-//      <div class="tags">
-//        <span class="tag">Tag1</span>
-//        <span class="tag">Tag2</span>
-//      </div>
-//    </div>
+ /*  
+ <div class="card">
+     <h3><a href="URL">NAME</a></h3>
+     <p>DESCRIPTION</p>
+     <div class="tags">
+       <span class="tag">Tag1</span>
+       <span class="tag">Tag2</span>
+     </div>
+ </div>
+*/
 // 2. Insert all cards into #card-container.
+//* HINT use `${var}` for fstring equivalant in javascript
 // ============  WRITE YOUR CODE BELOW  ============
 }
 
@@ -220,25 +222,20 @@ function filterCards(data){
 // ──────────────────────────────────────────────────
 //  Filter by tag
 // ──────────────────────────────────────────────────
-// 1. Grab all buttons inside #filter-bar
-// 2. For each button, add a 'click' event listener
+// 1. Grab all buttons inside #filter-bar -> document.querySelectorAll()
+// 2. For each button, add a 'click' event listener -> addEventListener('click', function(){})
 // 3. When clicked:
-//    a. Remove the "active" class from ALL buttons
-//    b. Add the "active" class to the clicked button
-//    c. Read the clicked button's data-tag value
-//    d. If data-tag === "all", show every card
-//    e. Otherwise, hide cards that don't have that tag
-//       (use element.style.display = "none" to hide,
-//        element.style.display = "" to show again)
-//
-// HINT: each card's .tags span elements contain the tag names.
-//       You can check if a card has a tag by looking at the span text.
+//    a. Remove the "active" class from ALL buttons -> button.classList.remove()
+//    b. Add the "active" class to the clicked button -> button.classList.add()
+//    c. Read the clicked button's data-tag value -> getAttribute()
+//    d. If data-tag == "all", render cards with  all data
+//    e. Otherwise, render data with filtered data 
+//         filter data with the tag -> array.includes()
 // ============  WRITE YOUR CODE BELOW  ============
-  return data
 }
 
-const filtered_data = filterCards(data);
-renderCards(filtered_data);
+renderCards(data);
+filterCards(data);
 
 </script>
 

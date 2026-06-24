@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Task 2 Solution — Web Programming SoSe 2026</title>
+  <title>Exercise: Populate Data from JSON &amp; Filtering</title>
 
   <style>
     *, *::before, *::after { box-sizing: border-box; }
@@ -93,7 +93,7 @@
 
 <div class="page">
 
-  <h1>Task 2: Data-Driven Content &amp; Filtering <span class="solution-badge">Solution</span></h1>
+  <h1>Exercise: Populate Data from JSON &amp; Filtering</h1>
   <p class="subtitle">Reference solution — read the comments to understand the approach.</p>
 
   <div class="filter-bar" id="filter-bar">
@@ -127,74 +127,93 @@ async function loadData(filename) {
   }
 }
 
-function renderCards(items) {
-  let html = '';
+function renderCards(data) {
+// ──────────────────────────────────────────────────
+//  Render Cards
+// ──────────────────────────────────────────────────
+// 1. Loop over the returned array and build a card for each item:
+ /*  
+ <div class="card">
+     <h3><a href="URL">NAME</a></h3>
+     <p>DESCRIPTION</p>
+     <div class="tags">
+       <span class="tag">Tag1</span>
+       <span class="tag">Tag2</span>
+     </div>
+ </div>
+*/
+// 2. Insert all cards into #card-container.
+// ============  WRITE YOUR CODE BELOW  ============
+let html = '';
 
-  items.forEach(function (item) {
+data.forEach(function(item){
+ let tagSpans = '';
 
-    let tagSpans = '';
+ for (const tag of item.tags){
+  tagSpans += '<span class="tag">' + tag + '</span>'
+ }
 
-    item.tags.forEach(function (tag) {
-      tagSpans += '<span class="tag">' + tag + '</span>';
-    });
+  html += `<div class="card">
+   <h3><a href="${item.url}">${item.name}</a></h3>
+     <p>${item.description}</p>
+     <div class="tags">${tagSpans}
+     </div>
+    </div>`;
+})
 
-    html +=
-      '<div class="card">' +
-        '<h3><a href="' + item.url + '" target="_blank">' + item.name + '</a></h3>' +
-        '<p>' + item.description + '</p>' +
-        '<div class="tags">' + tagSpans + '</div>' +
-      '</div>';
-  });
-
-  const container = document.getElementById('card-container');
-  container.innerHTML = html;
+const container = document.getElementById("card-container");
+container.innerHTML = html;
 }
 
-
 function filterCards(data){
-const buttons = document.querySelectorAll('#filter-bar .filter-btn');
+// ──────────────────────────────────────────────────
+//  Filter by tag
+// ──────────────────────────────────────────────────
+// 1. Grab all buttons inside #filter-bar -> document.querySelectorAll()
+// 2. For each button, add a 'click' event listener -> addEventListener('click', function(){})
+// 3. When clicked:
+//    a. Remove the "active" class from ALL buttons -> button.classList.remove()
+//    b. Add the "active" class to the clicked button -> button.classList.add()
+//    c. Read the clicked button's data-tag value -> getAttribute()
+//    d. If data-tag == "all", render cards with  all data
+//    e. Otherwise, render data with filtered data 
+//         filter data with the tag -> array.includes()
+// ============  WRITE YOUR CODE BELOW  ============
 
-buttons.forEach(function (btn) {
+const buttons = document.querySelectorAll('#filter-bar .filter-btn'); // returns array
 
-  btn.addEventListener('click', function () {
+buttons.forEach(function(btn){
 
-    // Step A: update active-button styling
-    buttons.forEach(function (b) { b.classList.remove('active'); });
+  btn.addEventListener('click', function(){
+    // this points to the currently clicked item
+    // console.log("Click", this); 
+    buttons.forEach(function(b){b.classList.remove('active')});
     this.classList.add('active');
 
-    // Step B: read the tag from the clicked button
     const selectedTag = this.getAttribute('data-tag');
-
-    // Step C: filter and re-render
-    if (selectedTag == 'all') {
-      return data
+    // console.log(selectedTag)
+    if (selectedTag == "all") {
+      renderCards(data);
     } else {
       let filtered = [];
-      data.forEach(function (d) {
-        let hasTag = false;
-        for (let m = 0; m < d.tags.length; m++) {
-          if (d.tags[m] == selectedTag) {
-            hasTag = true;
-            break;
-          }
-        }
-        if (hasTag) {
-          filtered.push(d);
-        }
-      });
-      return filtered
+      data.forEach(function(d){
+        if (d.tags.includes(selectedTag)) filtered.push(d);
+      })
+      // console.log(filtered);
+      renderCards(filtered);
     }
+  })
 
-  });
-});
-  return data
+})
+
+return data
 }
 
 // Start an IIFE to use `await` at the top level
 (async function(){
   let data = await loadData("data.json");
-  const filtered_data = filterCards(data);
-  renderCards(filtered_data);
+  renderCards(data);
+  filterCards(data)
 })();
 </script>
 
